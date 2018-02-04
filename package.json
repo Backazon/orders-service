@@ -1,0 +1,25 @@
+{
+  "name": "orders-service",
+  "version": "1.0.0",
+  "description": "Orders service within an ecommerce system",
+  "main": "server/index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chasekaylee/orders-service.git"
+  },
+  "author": "Chase Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chasekaylee/orders-service/issues"
+  },
+  "homepage": "https://github.com/chasekaylee/orders-service#readme",
+  "dependencies": {
+    "cassandra-driver": "^3.3.0"
+  }
+}
