@@ -7,7 +7,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+    "server-dev": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,10 @@
   },
   "homepage": "https://github.com/chasekaylee/orders-service#readme",
   "dependencies": {
-    "cassandra-driver": "^3.3.0"
+    "body-parser": "^1.18.2",
+    "cassandra-driver": "^3.3.0",
+    "compression": "^1.7.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2"
   }
 }
