@@ -7,7 +7,7 @@ client.connect(() => console.log('cassandra driver connected'));
 const table = process.env.TABLE_NAME || 'orders';
 
 router.get('/', (req, res) => {
-  res.send('connected!');
+  res.status(200).send('connected!');
 });
 
 router.get('/api/ordersByUser', async (req, res) => {
