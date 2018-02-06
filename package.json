@@ -26,5 +26,9 @@
     "compression": "^1.7.1",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "newrelic": "^2.7.0",
+    "siege": "^0.2.0"
   }
 }
