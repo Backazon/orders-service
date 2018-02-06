@@ -5,7 +5,7 @@ const db = require('../database');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.send('connected!');
+  res.status(200).send('connected!');
 });
 
 router.get('/api/ordersByUser', async (req, res) => {
