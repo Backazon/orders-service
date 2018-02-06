@@ -36,3 +36,7 @@ bower_components/
 
 # vs code
 .vscode
+
+#New Relic
+newrelic.js
+server/newrelic_agent.log
