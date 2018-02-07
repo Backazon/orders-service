@@ -24,7 +24,7 @@ describe('Server', () => {
       chai
         .request(server)
         .get('/api/ordersByUser')
-        .send()
+        .send({ userid: 1 })
         .end((error, res) => {
           expect(res).to.have.status(200);
           done();
