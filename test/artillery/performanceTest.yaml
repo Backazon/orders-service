@@ -5,18 +5,21 @@ config:
       arrivalRate: 30
 scenarios:
   - flow:
-      - get:
-          url: "/api/ordersByUser"
-      - get:
-          url: "/api/ordersByDate"
+      # - get:
+      #     url: "/api/ordersByUser"
+      # - get:
+      #     url: "/api/ordersByDate"
       - post:
           url: "/api/placeOrder"
           json:
             userid: 70000
             date: '2017-01-05T16:00:00.000Z'
-            items:
-              '[{itemid:4195,qty:4,rating:0},{itemid:4729,qty:1,rating:4},{itemid:3704,qty:2,rating:1},{itemid:3107,qty:1,rating:5}]'
+            itemid: 123456
             orderid: 255809
             purchasemethod: 'normal'
+            qty: 1234
+            rating: 5
             timestamp: '1517697427368'
             totalprice: 1
+
+            # userid, date, itemid, orderid, purchasemethod, qty, rating, timestamp, totalprice
