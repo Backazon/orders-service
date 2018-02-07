@@ -28,9 +28,27 @@ router.get('/api/ordersByDate', async (req, res) => {
 
 router.post('/api/placeOrder', async (req, res) => {
   const {
-    userid, date, items, orderid, purchasemethod, timestamp, totalprice,
+    userid,
+    date,
+    itemid,
+    orderid,
+    purchasemethod,
+    qty,
+    rating,
+    timestamp,
+    totalprice,
   } = req.body;
-  const params = [userid, date, items, orderid, purchasemethod, timestamp, totalprice];
+  const params = [
+    userid,
+    date,
+    itemid,
+    orderid,
+    purchasemethod,
+    qty,
+    rating,
+    timestamp,
+    totalprice,
+  ];
   try {
     const result = await db.placeOrder(params);
     res.status(201).json(result);
@@ -39,7 +57,7 @@ router.post('/api/placeOrder', async (req, res) => {
   }
 });
 
-// router.post('/api/updateInventory')
-// router.post('/api/updateAnalytics)
+// function to update inventory (interval)
+// function to update user analytics (interval)
 
 module.exports = router;
