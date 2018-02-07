@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
 
 router.get('/api/ordersByUser', async (req, res) => {
   try {
+    if (typeof req.body.userid !== 'number') throw new Error('invalid userid type');
     const result = await db.ordersByUser(req.body.userid);
     res.status(200).json(result);
   } catch (error) {
@@ -18,7 +19,11 @@ router.get('/api/ordersByUser', async (req, res) => {
 });
 
 router.get('/api/ordersByDate', async (req, res) => {
+  const { date = '2017-01-01' } = req.body;
   try {
+    if (typeof date !== 'string' || !isNaN(date) || isNaN(Date.parse(date))) {
+      throw new Error('invalid date');
+    }
     const result = await db.ordersByDate();
     res.status(200).json(result);
   } catch (error) {
@@ -50,6 +55,9 @@ router.post('/api/placeOrder', async (req, res) => {
     totalprice,
   ];
   try {
+    if (!req.body.userid || !req.body.orderid || Object.keys(req.body).length !== 9) {
+      throw new Error('not a valid order');
+    }
     const result = await db.placeOrder(params);
     res.status(201).json(result);
   } catch (error) {
