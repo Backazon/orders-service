@@ -10,7 +10,8 @@ client.connect(() => console.log('cassandra driver connected'));
 const table = process.env.TABLE_NAME || 'orders';
 
 // returns all the historical orders from a specific user id as an array of objects
-const ordersByUser = (userid = 1) =>
+// TODO: Fix userid = 1
+const ordersByUser = userid =>
   client
     .execute(`SELECT * FROM ${table} WHERE userid=${userid} limit 10`)
     .then(result => result.rows);

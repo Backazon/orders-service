@@ -9,9 +9,11 @@ router.get('/', (req, res) => {
 });
 
 router.get('/api/ordersByUser', async (req, res) => {
+  let { userid } = req.body;
   try {
-    if (typeof req.body.userid !== 'number') throw new Error('invalid userid type');
-    const result = await db.ordersByUser(req.body.userid);
+    if (typeof userid !== 'number') throw new Error('invalid userid type');
+    // FIXME: after testing change
+    const result = await db.ordersByUser((userid = 1));
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json(error.stack);
