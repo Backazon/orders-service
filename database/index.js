@@ -9,6 +9,9 @@ client.connect(() => console.log('cassandra driver connected'));
 
 const table = process.env.TABLE_NAME || 'orders';
 
+// ==========================================================
+// =================== Order By User ========================
+// ==========================================================
 // returns all the historical orders from a specific user id as an array of objects
 // TODO: Fix userid = 1
 const ordersByUser = userid =>
@@ -16,6 +19,9 @@ const ordersByUser = userid =>
     .execute(`SELECT * FROM ${table} WHERE userid=${userid} limit 10`)
     .then(result => result.rows);
 
+// ==========================================================
+// =================== Order By Date ========================
+// ==========================================================
 // TODO: figure out what parameters
 // returns order items in an array for a specific date range
 const ordersByDate = () =>
@@ -23,6 +29,9 @@ const ordersByDate = () =>
     .execute(`SELECT userid, itemid, qty, rating, totalprice FROM ${table} WHERE date < '2017-01-07' limit 50 ALLOW FILTERING`)
     .then(result => result.rows);
 
+// ==========================================================
+// ==================== Place Order =========================
+// ==========================================================
 // inserts an order into the cassandra database & takes in a formatted array as a parameter
 // [userid(int), date (new Date()), items(string), orderid(int), purchasemethod(string),
 // timestamp(bigint), totalprice(int)]
