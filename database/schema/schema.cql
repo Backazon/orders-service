@@ -1,6 +1,10 @@
 -- ========================================
 --  ===VERSION 2 WITHOUT NESTED ITEMS===
 -- ========================================
+CREATE KEYSPACE IF NOT EXISTS backazon with replication = {'class': 'SimpleStrategy', 'replication_factor':3};
+
+USE backazon;
+
 CREATE TABLE orders (
   userid int,
   date timestamp,
@@ -13,6 +17,8 @@ CREATE TABLE orders (
   totalprice int,
   PRIMARY KEY (userId, date))
   WITH CLUSTERING ORDER BY (date DESC);
+
+-- COPY backazon.orders (userid, date, itemid, orderid, purchasemethod, qty, rating, timestamp, totalprice) FROM '/Users/chasekaylee/apache-cassandra-3.11.1/historical-order-data/orders-historical-data1.csv' WITH DELIMITER='|';
 
 -- query total price of each purchase method sorted by date
 CREATE MATERIALIZED VIEW IF NOT EXISTS revenue_by_method
