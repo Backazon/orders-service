@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 services:
  cassandra0:
   image: cassandra:3.11.1
@@ -17,43 +17,47 @@ services:
     memlock: -1
     nproc: 32768
     nofile: 100000
+  mem_limit: 3000000000
 
- cassandra1:
-  image: cassandra:3.11.1
-  container_name: cassandra1
-  ports:
-   - 9142:9042
-  command: bash -c 'sleep 60;  /docker-entrypoint.sh cassandra -f'
-  depends_on:
-   - cassandra0
-  environment:
-   - CASSANDRA_SEEDS=cassandra0
-   - CASSANDRA_CLUSTER_NAME=backazon_cluster
-  ulimits:
-    memlock: -1
-    nproc: 32768
-    nofile: 100000
+#  cassandra1:
+#   image: cassandra:3.11.1
+#   container_name: cassandra1
+#   ports:
+#    - 9142:9042
+#   command: bash -c 'sleep 60;  /docker-entrypoint.sh cassandra -f'
+#   depends_on:
+#    - cassandra0
+#   environment:
+#    - CASSANDRA_SEEDS=cassandra0
+#    - CASSANDRA_CLUSTER_NAME=backazon_cluster
+#   ulimits:
+#     memlock: -1
+#     nproc: 32768
+#     nofile: 100000
+#   mem_limit: 1086000000
 
- cassandra2:
-  image: cassandra:3.11.1
-  container_name: cassandra2
-  ports:
-   - 9242:9042
-  command: bash -c 'sleep 120;  /docker-entrypoint.sh cassandra -f'
-  depends_on:
-    - cassandra0
-  environment:
-   - CASSANDRA_SEEDS=cassandra0
-   - CASSANDRA_CLUSTER_NAME=backazon_cluster
-  ulimits:
-    memlock: -1
-    nproc: 32768
-    nofile: 100000
+#  cassandra2:
+#   image: cassandra:3.11.1
+#   container_name: cassandra2
+#   ports:
+#    - 9242:9042
+#   command: bash -c 'sleep 120;  /docker-entrypoint.sh cassandra -f'
+#   depends_on:
+#     - cassandra0
+#   environment:
+#    - CASSANDRA_SEEDS=cassandra0
+#    - CASSANDRA_CLUSTER_NAME=backazon_cluster
+#   ulimits:
+#     memlock: -1
+#     nproc: 32768
+#     nofile: 100000
+#   mem_limit: 1086000000
 
  app:
-    build:
-      context: .
-      dockerfile: ./DockerFiles/Dockerfile
+    image: "886783916104.dkr.ecr.us-west-1.amazonaws.com/backazon-orders-service:app"
+    # build:
+    #   context: .
+    #   dockerfile: ./Dockerfiles/Dockerfile
     depends_on:
       - cassandra0
     ports:
@@ -62,5 +66,6 @@ services:
       - KEYSPACE_NAME=backazon
       - TABLE_NAME=orders
       - CONTACT_POINT0=cassandra0
-      - CONTACT_POINT1=cassandra1
-      - CONTACT_POINT2=cassandra2
+      # - CONTACT_POINT1=cassandra1
+      # - CONTACT_POINT2=cassandra2
+    mem_limit: 1000000000
