@@ -11,31 +11,25 @@ AWS.config.update({
 // Create SQS service object
 const sqs = new AWS.SQS({ apiVersion: '2012-11-05' });
 
-const queueURL = 'QUEUE_URL';
+const queueURL = 'https://sqs.us-west-1.amazonaws.com/886783916104/orders';
 
 const params = {
   AttributeNames: ['SentTimestamp'],
   MaxNumberOfMessages: 1,
   MessageAttributeNames: ['All'],
   QueueUrl: queueURL,
-  VisibilityTimeout: 0,
-  WaitTimeSeconds: 0,
+  WaitTimeSeconds: 10,
 };
 
-sqs.receiveMessage(params, (err, data) => {
-  if (err) {
-    console.log('Receive Error', err);
-  } else if (data.Messages) {
-    const deleteParams = {
-      QueueUrl: queueURL,
-      ReceiptHandle: data.Messages[0].ReceiptHandle,
-    };
-    sqs.deleteMessage(deleteParams, (err, data) => {
+sqs.receiveMessage(
+  params,
+  (err, data) =>
+    new Promise((reject, resolve) => {
       if (err) {
-        console.log('Delete Error', err);
-      } else {
-        console.log('Message Deleted', data);
+        reject(err);
       }
-    });
-  }
-});
+      resolve(data);
+    }),
+);
+
+exports.default = sqs;
