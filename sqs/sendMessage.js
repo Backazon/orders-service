@@ -11,26 +11,6 @@ AWS.config.update({
 // Create SQS service object
 const sqs = new AWS.SQS({ apiVersion: '2012-11-05' });
 
-// const params = {
-//   DelaySeconds: 10,
-//   MessageAttributes: {
-//     Title: {
-//       DataType: 'String',
-//       StringValue: 'The Whistler',
-//     },
-//     Author: {
-//       DataType: 'String',
-//       StringValue: 'John Grisham',
-//     },
-//     WeeksOn: {
-//       DataType: 'Number',
-//       StringValue: '6',
-//     },
-//   },
-//   MessageBody: 'Information about current NY Times fiction bestseller for week of 12/11/2016.',
-//   QueueUrl: 'https://sqs.us-west-1.amazonaws.com/886783916104/orders',
-// };
-
 const params = {
   DelaySeconds: 10,
   MessageAttributes: {
