@@ -1,3 +1,4 @@
+
 version: '2'
 services:
  cassandra0:
@@ -54,10 +55,9 @@ services:
 #   mem_limit: 1086000000
 
  app:
-    image: "886783916104.dkr.ecr.us-west-1.amazonaws.com/backazon-orders-service:app"
-    # build:
-    #   context: .
-    #   dockerfile: ./Dockerfiles/Dockerfile
+    build:
+      context: .
+      dockerfile: ./DockerFiles/Dockerfile
     depends_on:
       - cassandra0
     ports:
@@ -68,4 +68,3 @@ services:
       - CONTACT_POINT0=cassandra0
       # - CONTACT_POINT1=cassandra1
       # - CONTACT_POINT2=cassandra2
-    mem_limit: 1000000000

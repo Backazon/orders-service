@@ -11,17 +11,14 @@ AWS.config.update({
 // Create SQS service object
 const sqs = new AWS.SQS({ apiVersion: '2012-11-05' });
 
-const params = {
-  Attributes: {
-    ReceiveMessageWaitTimeSeconds: '20',
-  },
-  QueueUrl: 'QUEUE_URL',
-};
+const sendToAnalytics = params =>
+  new Promise((reject, resolve) => {
+    sqs.sendMessage(params, (err, data) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(data);
+    });
+  });
 
-sqs.setQueueAttributes(params, (err, data) => {
-  if (err) {
-    console.log('Error', err);
-  } else {
-    console.log('Success', data);
-  }
-});
+module.exports = sendToAnalytics;

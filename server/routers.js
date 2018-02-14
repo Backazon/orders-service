@@ -2,6 +2,7 @@ const express = require('express');
 
 const { ordersByUser, ordersByDate, placeOrder } = require('../database');
 const { formatOrders } = require('./helpers.js');
+const sendToAnalytics = require('../sqs/sendToAnalytics.js');
 
 const router = express.Router();
 
@@ -73,14 +74,13 @@ router.post('/api/placeOrder', async (req, res) => {
     if (!req.body.userid || !req.body.orderid || Object.keys(req.body).length !== 9) {
       throw new Error('not a valid order');
     }
+    const message = formatOrders(userid, itemid, qty, rating);
+    sendToAnalytics(message).catch(console.error);
     const result = await placeOrder(params);
     res.status(201).json(result);
   } catch (error) {
     res.status(500).json(error.stack);
   }
 });
-
-// function to update inventory (interval)
-// function to update user analytics (interval)
 
 module.exports = router;
