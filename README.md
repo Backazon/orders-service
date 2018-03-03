@@ -1,6 +1,6 @@
 # orders-service
 
-> Orders service within an ecommerce SOA that handles processing user orders at commerical scale
+> Orders service within an ecommerce SOA that handles processing user orders at commercial scale
 
 ## Team
 
